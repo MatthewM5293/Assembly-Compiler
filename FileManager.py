@@ -1,3 +1,6 @@
+import array
+from textwrap import wrap
+
 from Instruction import Instruction
 
 list_instructions = []
@@ -7,15 +10,19 @@ list_instructions = []
 def read_file(filename):
     with open(filename, "r") as F:
         for line in F:
-            print(line)
-            # convert read lines into a list of instructions
-            inst = Instruction(line.rstrip())
-            list_instructions.append(inst)
+            if len(line.strip()) > 0:
+                inst = Instruction(line.rstrip()).get_type()
+                list_instructions.append(inst)
+                print(f"{line} :  {inst}")
 
 
 #  export file based on data sent in
 def export_file(filename):
     with open(filename, "wb") as F:
         for inst in list_instructions:
-            F.write(inst)
-            F.close()
+            output = hex(int(inst, 2))
+            output = wrap(output, 2)[::-1]
+            output = f"{output[0]}{output[1]}{output[2]}{output[3]}"
+            F.write(bytes.fromhex(output))
+        F.close()
+
