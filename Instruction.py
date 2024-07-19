@@ -30,7 +30,7 @@ class Instruction:
             result = DataProcessing(condition=self.condition, OpCode=self.instructions[0], Rn=self.processes_register(self.instructions[2].strip("R")), Rd=self.processes_register(self.instructions[1].strip("R")), Operand2=self.hex_to_binary(self.instructions[3], 12)).generate_binary()
         elif "LDR" in self.instructions[0] or "STR" in self.instructions[0]:
             from Instructions.SingleDataTransfer import SingleDataTransfer
-            result = SingleDataTransfer(condition=self.condition, P=0, U=0, B=0, W=0, L=0, Rn=self.processes_register(self.instructions[2].strip("R")), Rd=self.processes_register(self.instructions[1].strip("R")), Offset="000000000000").generate_binary()
+            result = SingleDataTransfer(condition=self.condition, P=0, U=0, B=0, W=0, Type=self.instructions[0], Rn=self.processes_register(self.instructions[2].strip("R")), Rd=self.processes_register(self.instructions[1].strip("R")), Offset="000000000000").generate_binary()
         elif 'B' in self.instructions[0]:
             from Instructions.Branch import Branch
             result = Branch(condition=self.condition,L=0, Offset=self.hex_to_binary(self.instructions[1], 24)).generate_binary()

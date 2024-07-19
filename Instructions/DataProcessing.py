@@ -17,15 +17,15 @@ class DataProcessing:
         self.Rd = Rd  # Destination register (Rd)
         self.Operand2 = Operand2  # Operand 2
         self.set_immediate()
-        self.__set_operation_code()
         self.set_condition_codes()
+        self.__set_operation_code()
 
     def __set_operation_code(self):
         regex = r'([A-Z]+)'
         match = re.search(regex, self.OpCode)
         if match:
             self.OpCode = self.condition_codes.get(match.group(1), "0000")
-        self.OpCode = "0000"
+        # self.OpCode = "0000"
 
     def set_immediate(self):
         self.Operand2.lstrip("0x")
