@@ -1,7 +1,7 @@
 import array
 from textwrap import wrap
 
-from Instruction import Instruction
+from InstructionCreator import InstructionCreator
 
 list_instructions = []
 
@@ -11,9 +11,9 @@ def read_file(filename):
     with open(filename, "r") as F:
         for line in F:
             if len(line.strip()) > 0:
-                inst = Instruction(line.rstrip()).get_type()
+                inst = InstructionCreator(line.rstrip()).get_type()
                 list_instructions.append(inst)
-                print(f"{line} :  {inst}")
+                # print(f"{line} :  {inst}")
 
 
 #  export file based on data sent in

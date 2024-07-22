@@ -1,16 +1,20 @@
-class SingleDataTransfer:
-    def __init__(self, condition, P, U, B, W, Type, Rn, Rd, Offset):
-        self.condition = condition
+from Instruction import Instruction
+
+
+class SingleDataTransfer(Instruction):
+    def __init__(self, data):
+        super().__init__()
+        self.condition = super().set_condition_code(data[0])
         self.I = "0"  # Immediate offset (I)
-        self.Offset = Offset  # Offset
-        self.Rd = Rd  # Source/Destination register (Rd)
-        self.Rn = Rn  # Base register (Rn)
-        self.Type = Type
+        self.Offset = "000000000000"  # Offset
+        self.Rd = super().processes_register(data[1].strip("R"))  # Source/Destination register (Rd)
+        self.Rn = super().processes_register(data[2].strip("R"))  # Base register (Rn)
+        self.Type = data[0]
         self.L = "0"  # Load/Store bit (L)
-        self.W = W  # Write-back bit (W)
-        self.B = B  # Byte/Word bit (B)
-        self.U = U  # Up/Down bit (U)
-        self.P = P  # Pre/Post indexing bit (P)
+        self.W = "0"  # Write-back bit (W)
+        self.B = "0"  # Byte/Word bit (B)
+        self.U = "0"  # Up/Down bit (U)
+        self.P = "0"  # Pre/Post indexing bit (P)
         self.set_immediate()
         self.set_load_bit()
 
