@@ -1,19 +1,21 @@
 import array
 from textwrap import wrap
-
 from InstructionCreator import InstructionCreator
+from LabelManager import LabelManager
 
 list_instructions = []
 
 
 # Read in file
 def read_file(filename):
+    label_manager = LabelManager()
     with open(filename, "r") as F:
         for line in F:
             if len(line.strip()) > 0:
-                inst = InstructionCreator(line.rstrip()).get_type()
-                list_instructions.append(inst)
-                # print(f"{line} :  {inst}")
+                label_manager.parse_assembly_code(line.rstrip())
+    for label in label_manager.processed_lines:
+        inst = InstructionCreator(label).get_type()
+        list_instructions.append(inst)
 
 
 #  export file based on data sent in

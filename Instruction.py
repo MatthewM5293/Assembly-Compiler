@@ -27,4 +27,5 @@ class Instruction:
         if hex_value == "":
             hex_value = "0"
         scale = 16
+        # return bin(int(hex_value, scale))[2:].zfill(fill)
         return bin(int(hex_value, scale))[2:].zfill(fill)
