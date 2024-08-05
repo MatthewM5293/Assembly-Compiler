@@ -28,3 +28,10 @@ def export_file(filename):
             F.write(bytes.fromhex(output))
         F.close()
 
+
+class App:
+    def __init__(self, txt_file, output_file):
+        self.txtFile = txt_file
+        self.outputFile = output_file
+        read_file(self.txtFile)
+        export_file(self.outputFile)
