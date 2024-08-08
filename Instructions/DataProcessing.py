@@ -15,8 +15,8 @@ class DataProcessing(Instruction):
         self.I = "0"  # Immediate Operand (I)
         self.OpCode = data[0]  # Operation Code (OpCode)
         self.S = "0"  # Set condition codes (S)
-        self.Rn = super().processes_register(data[2].strip("R"))  # 1st operand register (Rn)
-        self.Rd = super().processes_register(data[1].strip("R"))  # Destination register (Rd)
+        self.Rn = super().processes_register(data[2])  # 1st operand register (Rn)
+        self.Rd = super().processes_register(data[1])  # Destination register (Rd)
         self.Operand2 = super().hex_to_binary(data[3], 12)  # Operand 2
         self.set_immediate()
         self.set_condition_codes()

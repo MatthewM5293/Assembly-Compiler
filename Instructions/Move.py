@@ -8,7 +8,7 @@ class Move(Instruction):
         self.condition = super().set_condition_code(data[0])  # 1110
         self.MoveType = data[0]  # "0000"
         self.Imm4 = self.Offset[:4]  # "0000"
-        self.Rd = super().processes_register(data[1].strip("R"))  # Source/Destination register (Rd)
+        self.Rd = super().processes_register(data[1])  # Source/Destination register (Rd)
         self.Imm12 = self.Offset[4:]  # "0000 0000 0000"
 #
 # Imm12

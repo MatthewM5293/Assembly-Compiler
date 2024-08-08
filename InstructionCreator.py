@@ -1,3 +1,4 @@
+from Instructions.BlockDataTransfer import BlockDataTransfer
 from Instructions.Move import Move
 from Instructions.DataProcessing import DataProcessing
 from Instructions.SingleDataTransfer import SingleDataTransfer
@@ -16,6 +17,8 @@ class InstructionCreator:
             result = Move(data=self.instructions).generate_binary()
         elif any(instr in self.instructions[0] for instr in ["ADD", "SUB", "ORR", "AND"]):
             result = DataProcessing(data=self.instructions).generate_binary()
+        elif any(instr in self.instructions[0] for instr in ["LDMEA", "STMEA"]):
+            result = BlockDataTransfer(data=self.instructions).generate_binary()
         elif any(instr in self.instructions[0] for instr in ["LDR", "STR"]):
             result = SingleDataTransfer(data=self.instructions).generate_binary()
         elif 'BX' in self.instructions[0]:

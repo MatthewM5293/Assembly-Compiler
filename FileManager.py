@@ -11,11 +11,12 @@ def read_file(filename):
     label_manager = LabelManager()
     with open(filename, "r") as F:
         for line in F:
-            if len(line.strip()) > 0:
-                label_manager.parse_assembly_code(line.rstrip())
+            if len(line.strip()) > 0 and "//" not in line.strip():
+                label_manager.parse_assembly_code(line.strip())
     for label in label_manager.processed_lines:
         inst = InstructionCreator(label).get_type()
         list_instructions.append(inst)
+        print(inst)
 
 
 #  export file based on data sent in
