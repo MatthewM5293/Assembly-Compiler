@@ -18,7 +18,7 @@ STMEA R13!, {R0-R12}
 // (Store 4,000,000)
 MOVW R6, 0X0900
 MOVT R6, 0X003D
-STREA R6, R13! 4
+STREA R6, R13!, 4
 BL >delay
 LDMEA R13!, {R0-R12}
 
@@ -31,13 +31,13 @@ STMEA R13!, {R0-R12}
 // (Store 1,000,000)
 MOVW R6, 0X4240
 MOVT R6, 0X000F
-STREA R6, R13! 4
+STREA R6, R13!, 4
 BL >delay
 LDMEA R13!, {R0-R12}
 
 B >start
 
-LDREA R8, R13! 4 <delay
+LDREA R8, R13!, 4 <delay
 SUB{S} R8, R8, 0X0001 <sub
 B{PL} >sub
 BX R14

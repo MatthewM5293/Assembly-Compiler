@@ -22,7 +22,7 @@ class SingleDataTransfer(Instruction):
 
     def set_immediate(self):
         if self.Offset.lstrip("0") != "":
-            self.I = "1"
+            self.I = "0"
 
     def set_load_bit(self):
         if self.Type == "LDR":
@@ -36,8 +36,9 @@ class SingleDataTransfer(Instruction):
             self.U = "1"
 
     def set_write_bit(self, data):
-        if super().set_write_back_bit(data):
+        if super().set_write_back_bit(data[2]):
             self.W = "1"
 
     def generate_binary(self):
         return f"{self.condition}01{self.I}{self.P}{self.U}{self.B}{self.W}{self.L}{self.Rn}{self.Rd}{self.Offset}"
+        # 1110 011

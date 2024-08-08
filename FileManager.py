@@ -16,7 +16,7 @@ def read_file(filename):
     for label in label_manager.processed_lines:
         inst = InstructionCreator(label).get_type()
         list_instructions.append(inst)
-        print(inst)
+        # print(inst)
 
 
 #  export file based on data sent in
@@ -27,6 +27,7 @@ def export_file(filename):
             output = wrap(output, 2)[::-1]
             output = f"{output[0]}{output[1]}{output[2]}{output[3]}"
             F.write(bytes.fromhex(output))
+            print(' '.join(a+b for a,b in zip(output[::2], output[1::2])))
         F.close()
 
 

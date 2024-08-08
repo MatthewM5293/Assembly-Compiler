@@ -16,16 +16,15 @@ class BlockDataTransfer(Instruction):
         self.set_load_bit()
         self.set_write_bit(data)
 
-
     def set_load_bit(self):
         if self.Type == "LDMEA":
-            self.P = "1"
             self.L = "1"
+            self.P = "1"
         elif self.Type == "STMEA":
             self.U = "1"
 
     def set_write_bit(self, data):
-        if super().set_write_back_bit(data):
+        if super().set_write_back_bit(data[1]):
             self.W = "1"
 
     def generate_binary(self):
