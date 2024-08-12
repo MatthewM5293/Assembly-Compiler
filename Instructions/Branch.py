@@ -15,7 +15,4 @@ class Branch(Instruction):
             self.L = "1"
 
     def generate_binary(self):
-        # if "BX" in self.branch_type:
-        #     return f"{self.condition}000100101111111111110001{super().processes_register(self.Offset.strip("R"))}"
-        # else:
-            return f"{self.condition}101{self.L}{super().hex_to_binary(self.Offset, 24)}"
+        return f"{self.condition}101{self.L}{super().hex_to_binary(self.Offset, 24)}"

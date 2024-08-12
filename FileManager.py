@@ -16,7 +16,7 @@ def read_file(filename):
     for label in label_manager.processed_lines:
         inst = InstructionCreator(label).get_type()
         list_instructions.append(inst)
-        # print(inst)
+        # print(f"{label}: {inst}")
 
 
 #  export file based on data sent in

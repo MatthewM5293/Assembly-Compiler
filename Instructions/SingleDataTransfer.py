@@ -6,7 +6,7 @@ class SingleDataTransfer(Instruction):
         super().__init__()
         self.condition = super().set_condition_code(data[0])
         self.I = "0"  # Immediate offset (I)
-        self.Offset = super().hex_to_binary(data[3], 12)  # Offset
+        self.Offset = "000000000000"
         self.Rd = super().processes_register(data[1])  # Source/Destination register (Rd)
         self.Rn = super().processes_register(data[2])  # Base register (Rn)
         self.Type = data[0]
@@ -19,6 +19,11 @@ class SingleDataTransfer(Instruction):
         self.set_load_bit()
         self.set_ea_bits()
         self.set_write_bit(data)
+        self.set_offset(data)
+
+    def set_offset(self, data):
+        if len(data) > 3:
+            self.Offset = super().hex_to_binary(data[3], 12)  # Offset
 
     def set_immediate(self):
         if self.Offset.lstrip("0") != "":
