@@ -5,6 +5,10 @@ import re
 # keep track of which step it's in
 # return the proper offset when the end label is found
 
+def int_to_hex(n):
+    return "0x" + '{:04X}'.format(n & ((1 << 24) - 1))
+
+
 class LabelManager:
     def __init__(self):
         self.label_positions = {}
@@ -28,7 +32,7 @@ class LabelManager:
                 label = match.group(1)
                 if label in self.label_positions and label not in self.processed_labels:
                     offset = self.label_positions[label] - i - 2
-                    offset = self.int_to_hex(offset)
+                    offset = int_to_hex(offset)
                     line = line.replace(f'<{label}', f'{offset}')
                     self.processed_labels.add(label)
 
@@ -37,11 +41,8 @@ class LabelManager:
                 label = match.group(1)
                 if label in self.label_positions:
                     offset = self.label_positions[label] - i - 2
-                    offset = self.int_to_hex(offset)
+                    offset = int_to_hex(offset)
                     line = line.replace(f'>{label}', f'{offset}')
 
             self.processed_lines[i] = line
-
-    def int_to_hex(self, n):
-        return "0x" + '{:04X}'.format(n & ((1 << 24) - 1))
 

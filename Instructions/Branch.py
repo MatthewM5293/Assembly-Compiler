@@ -1,4 +1,4 @@
-from Instruction import Instruction
+from Instruction import Instruction, hex_to_binary
 
 
 class Branch(Instruction):
@@ -15,4 +15,4 @@ class Branch(Instruction):
             self.L = "1"
 
     def generate_binary(self):
-        return f"{self.condition}101{self.L}{super().hex_to_binary(self.Offset, 24)}"
+        return f"{self.condition}101{self.L}{hex_to_binary(self.Offset, 24)}"

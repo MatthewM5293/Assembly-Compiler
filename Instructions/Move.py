@@ -1,14 +1,14 @@
-from Instruction import Instruction
+from Instruction import Instruction, hex_to_binary, processes_register
 
 
 class Move(Instruction):
     def __init__(self, data):
         super().__init__()
-        self.Offset = super().hex_to_binary(data[2], 16)
+        self.Offset = hex_to_binary(data[2], 16)
         self.condition = super().set_condition_code(data[0])  # 1110
         self.MoveType = data[0]  # "0000"
         self.Imm4 = self.Offset[:4]  # "0000"
-        self.Rd = super().processes_register(data[1])  # Source/Destination register (Rd)
+        self.Rd = processes_register(data[1])  # Source/Destination register (Rd)
         self.Imm12 = self.Offset[4:]  # "0000 0000 0000"
 #
 # Imm12

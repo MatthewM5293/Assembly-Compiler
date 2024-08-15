@@ -1,12 +1,12 @@
-from Instruction import Instruction
+from Instruction import Instruction, set_write_back_bit, processes_register
 
 
 class BlockDataTransfer(Instruction):
     def __init__(self, data):
         super().__init__()
         self.condition = super().set_condition_code(data[0])
-        self.register_list = super().processes_register(data[2])  # Offset
-        self.Rn = super().processes_register(data[1])  # Base register (Rn)
+        self.register_list = processes_register(data[2])  # Offset
+        self.Rn = processes_register(data[1])  # Base register (Rn)
         self.Type = data[0]
         self.L = "0"  # Load/Store bit (L)
         self.W = "0"  # Write-back bit (W)
@@ -24,7 +24,7 @@ class BlockDataTransfer(Instruction):
             self.U = "1"
 
     def set_write_bit(self, data):
-        if super().set_write_back_bit(data[1]):
+        if set_write_back_bit(data[1]):
             self.W = "1"
 
     def generate_binary(self):

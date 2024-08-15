@@ -1,4 +1,4 @@
-from Instruction import Instruction
+from Instruction import Instruction, hex_to_binary, set_write_back_bit, processes_register
 
 
 class SingleDataTransfer(Instruction):
@@ -7,8 +7,8 @@ class SingleDataTransfer(Instruction):
         self.condition = super().set_condition_code(data[0])
         self.I = "0"  # Immediate offset (I)
         self.Offset = "000000000000"
-        self.Rd = super().processes_register(data[1])  # Source/Destination register (Rd)
-        self.Rn = super().processes_register(data[2])  # Base register (Rn)
+        self.Rd = processes_register(data[1])  # Source/Destination register (Rd)
+        self.Rn = processes_register(data[2])  # Base register (Rn)
         self.Type = data[0]
         self.L = "0"  # Load/Store bit (L)
         self.W = "0"  # Write-back bit (W)
@@ -23,7 +23,7 @@ class SingleDataTransfer(Instruction):
 
     def set_offset(self, data):
         if len(data) > 3:
-            self.Offset = super().hex_to_binary(data[3], 12)  # Offset
+            self.Offset = hex_to_binary(data[3], 12)  # Offset
 
     def set_immediate(self):
         if self.Offset.lstrip("0") != "":
@@ -41,7 +41,7 @@ class SingleDataTransfer(Instruction):
             self.U = "1"
 
     def set_write_bit(self, data):
-        if super().set_write_back_bit(data[2]):
+        if set_write_back_bit(data[2]):
             self.W = "1"
 
     def generate_binary(self):
